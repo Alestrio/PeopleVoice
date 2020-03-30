@@ -11,16 +11,16 @@ class CsvActions():
         with open(PATH, newline='') as csvfile:
             self.votersReader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             self.votersWriter = csv.writer(svfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
-        return null;
+        return null
 
     def setPath(self, topath:str):
         PATH = topath;
-        return null;
+        return null
 
     def addLine(self, forename:str, lastname:str, password:str, vote1:int, vote2:int): #Votes are int because the ID of the given person is specified
         self.votersWriter.writerow([forename, lastname, password, vote1, vote2])
         #TODO Hashing the PW
-        return null;
+        return null
 
     def setVote(self, id:int, vote1:int, vote2:int):
         votersList = self.getAllLines()
@@ -34,14 +34,14 @@ class CsvActions():
         item = item[:-1]
         votersList[id] = item
         self.writeRowsToCsv(votersList)
-        return null;
+        return null
 
     def getAllLines(self) -> lst:
         votersList = list();
         for row in self.votersReader:
             votersList.append(row)
-        return votersList;
+        return votersList
 
     def writeRowsToCsv(self, rows:lst):
         votersWriter.writerows(rows)
-        return null;
+        return null
