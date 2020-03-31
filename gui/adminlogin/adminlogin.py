@@ -22,7 +22,7 @@ class Adminlogin():
     def validate() -> bool:
         password = self.pw
         bhashedUserEntry = hashlib.md5(encode(password))
-        hashedUserEntry = bhashedUserEntry.digest()
+        hashedUserEntry = bhashedUserEntry.hexdigest()
         if hashedUserEntry == self.hash:
             self.window.quit()
             return True #Retour non utilisé pour l'instant
