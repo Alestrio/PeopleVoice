@@ -23,3 +23,6 @@ class Settings():
 
     def getAdminPWHash(self) -> str:
         return self.properties.get('adminpwhash')
+
+    def getCsvPath(self) -> str:
+        return self.properties.get('csvpath')
