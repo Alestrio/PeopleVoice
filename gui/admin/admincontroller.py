@@ -12,3 +12,7 @@ class Admincontroller():
     def __init__(self):
 
         return None
+
+    def onAddBtnClick(self):
+
+        return None
