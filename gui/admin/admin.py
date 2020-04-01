@@ -4,6 +4,7 @@
 # and send back data to the software in itself.
 #
 import admincontroller
+import adminview
 import sys
 sys.path.insert(0, "../../ioactions") #We need to use sys because those are in
 import csvactions as csva             #another folder
@@ -12,10 +13,11 @@ import settings as sett
 class Admin:
 
     def __init__(self):
-        st = sett.Settings('../../settings.yaml') #if we want to move the voters
+        st = sett.Settings('settings.yaml') #if we want to move the voters
         csvpath = st.getCsvPath()                 #file to another folder
-        csv = csva.CsvActions()
-        csv.setPath(csvpath)
+        csv = csva.CsvActions(csvpath)
+
+        view = adminview.Adminview()
         return None
 
     def addVoter(self, forename:str, lastname:str, passwordhash:str):
@@ -31,5 +33,5 @@ class Admin:
         return csv.getAllLines()
 
 #We'll add methods to edit voters maybe later. Now, we focus on creating a
-#simple but robust app. Furthermore, ideally, wecan move the definition of
+#simple but robust app. Furthermore, ideally, we can move the definition of
 #the settings file to a global variable somewhere in the code.

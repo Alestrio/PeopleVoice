@@ -6,10 +6,11 @@ import csv
 class CsvActions:
 
     #Constructor
-    def __init__(self):
+    def __init__(self, path:str):
+        self.PATH = path
         with open(self.PATH, newline='') as csvfile:
             self.votersReader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-            self.votersWriter = csv.writer(svfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            self.votersWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         return None
 
     def setPath(self, topath:str):
