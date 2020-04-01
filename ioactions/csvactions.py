@@ -6,7 +6,7 @@ import csv
 class CsvActions:
 
     #Constructor
-    def init(self):
+    def __init__(self):
         with open(self.PATH, newline='') as csvfile:
             self.votersReader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             self.votersWriter = csv.writer(svfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
@@ -43,4 +43,15 @@ class CsvActions:
 
     def writeRowsToCsv(self, rows:list):
         votersWriter.writerows(rows)
+        return None
+
+    def delById(self, id:int):
+        votersList = self.getAllLines()
+        votersList.remove(votersList[id])
+        self.writeRowsToCsv(votersList)
+        return None
+
+    #debug function
+    def sayHi(self):
+        print('hi')
         return None
