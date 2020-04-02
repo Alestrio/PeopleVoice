@@ -4,7 +4,6 @@
 # the controller.
 #
 from tkinter import * #we need to install that lib beforehand (apt ... python3-tk)
-from tkinter import ttk
 import admincontroller
 
 class Adminview():
@@ -20,7 +19,7 @@ class Adminview():
 
         majFrame = LabelFrame(window, text="Type de majorité")
         majTypeFirstTurn = Label(majFrame, text='Type de majorité du \n premier tour')
-        majTypeScdTurn = Label(majFrame, text='Type de majorité du \n premier tour')
+        majTypeScdTurn = Label(majFrame, text='Type de majorité du \n second tour')
         majTypeFirstTurn.grid(column=0, row=0)
         majTypeScdTurn.grid(column=1, row=0)
         self.FT_maj = StringVar()
@@ -38,8 +37,6 @@ class Adminview():
         majFrame.grid(column=0, row=0)
 
         votersFrame = LabelFrame(window, text='Electeurs')
-        votersLabel = Label(votersFrame, text='Electeurs')
-        votersLabel.grid(column=0, row=0)
         self.votersList = Listbox(votersFrame)
         self.votersList.grid(column=0, row=1, rowspan=4)
         voterAddBtn = Button(votersFrame, text='Ajouter un électeur', command=self.onVoterAddBtnClick)
