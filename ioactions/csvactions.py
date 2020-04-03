@@ -8,9 +8,6 @@ class CsvActions:
     #Constructor
     def __init__(self, path:str):
         self.PATH = path
-        with open(self.PATH, newline='') as csvfile:
-            self.votersReader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-            self.votersWriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         return None
 
     def setPath(self, topath:str):
@@ -18,8 +15,9 @@ class CsvActions:
         return None
 
     def addLine(self, forename:str, lastname:str, password:str, vote1:int, vote2:int): #Votes are int because the ID of the given person is specified
-        self.votersWriter.writerow([forename, lastname, password, vote1, vote2])
-        #TODO Hashing the PW
+        lines = self.getAllLines()
+        lines.append([forename, lastname, password, vote1, vote2])
+        self.writeRowsToCsv(lines)
         return None
 
     def setVote(self, id:int, vote1:int, vote2:int):
@@ -38,12 +36,17 @@ class CsvActions:
 
     def getAllLines(self) -> list:
         votersList = list();
-        for row in self.votersReader:
-            votersList.append(row)
+        with open(self.PATH, 'r', newline='') as csvfile:
+            reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            for row in reader:
+                votersList.append(row)
+            print(votersList)
         return votersList
 
     def writeRowsToCsv(self, rows:list):
-        votersWriter.writerows(rows)
+        with open(self.PATH, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
+            writer.writerows(rows)
         return None
 
     def delById(self, id:int):
