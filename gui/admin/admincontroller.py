@@ -26,13 +26,11 @@ class Admincontroller():
 
         forenameLabel = Label(self.dialog, text='Prénom :')
         forenameLabel.grid(column=0, row=0)
-#        self.forename = StringVar()
         self.forenameEntry = Entry(self.dialog)
         self.forenameEntry.grid(column=1, row=0)
 
         lastnameLabel = Label(self.dialog, text='Nom :')
         lastnameLabel.grid(column=0, row=1)
-#        self.lastname = StringVar()
         self.lastnameEntry = Entry(self.dialog)
         self.lastnameEntry.grid(column=1, row=1)
 
@@ -42,12 +40,9 @@ class Admincontroller():
         return None
 
     def validateAddVoter(self):
-        #We gather the needed values...
+        #We gather the needed values
         forename = self.forenameEntry.get()
         lastname = self.lastnameEntry.get()
-        #... and we reset the attributes of the class
-#        self.forename = StringVar()
-#        self.lastname = StringVar()
         #password generation:
         password = ''
         for i in range(0,9):
@@ -59,5 +54,5 @@ class Admincontroller():
         hashedPassword = bhashedPassword.hexdigest()
 
         self.model.addVoter(forename, lastname, hashedPassword)
-        self.dialog.quit()
+#        self.dialog.quit()
         return None

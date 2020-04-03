@@ -65,7 +65,8 @@ class Adminview():
     def setVotersListContent(self, content:list):
         #On efface et remet le contenu de la listbox de façon à éviter les doublons
         self.votersList.delete(0, END)
-        self.votersList.insert(0, content)
+        for voter in self.model.getVoters():
+            self.votersList.insert(0, voter[0] + ' ' + voter[1])
         return None
 
     def setCandidatesList(self, content:list):
