@@ -14,10 +14,10 @@ class Adminview():
         return None
 
     def createAndShowWindow(self):
-        window = Tk()
-        window.title('PeopleVoice - Mode Admin')
+        self.window = Tk()
+        self.window.title('PeopleVoice - Mode Admin')
 
-        majFrame = LabelFrame(window, text="Type de majorité")
+        majFrame = LabelFrame(self.window, text="Type de majorité")
         majTypeFirstTurn = Label(majFrame, text='Type de majorité du \n premier tour')
         majTypeScdTurn = Label(majFrame, text='Type de majorité du \n second tour')
         majTypeFirstTurn.grid(column=0, row=0)
@@ -36,7 +36,7 @@ class Adminview():
         ST_relativeMaj.grid(column=1, row=2)
         majFrame.grid(column=0, row=0)
 
-        votersFrame = LabelFrame(window, text='Electeurs')
+        votersFrame = LabelFrame(self.window, text='Electeurs')
         self.votersList = Listbox(votersFrame)
         self.votersList.grid(column=0, row=1, rowspan=4)
         voterAddBtn = Button(votersFrame, text='Ajouter un électeur', command=self.onVoterAddBtnClick)
@@ -45,46 +45,45 @@ class Adminview():
         voterDelBtn.grid(column=1, row=4)
         votersFrame.grid(column=0, row=1)
 
-        candidatesFrame = LabelFrame(window, text='Candidats')
+        candidatesFrame = LabelFrame(self.window, text='Candidats')
         self.candidatesList = Listbox(candidatesFrame)
         self.candidatesList.grid(column=0, columnspan=2, row=0, rowspan=6)
-
         candidateAddBtn = Button(candidatesFrame, text='Ajouter un candidat', command=self.onAddCandidateBtnClick)
         candidateAddBtn.grid(column=0, row=6)
         candidateDelBtn = Button(candidatesFrame, text='Supprimer un candidat', command=self.onDelCandidateBtnClick)
         candidateDelBtn.grid(column=0, row=7)
         candidatesFrame.grid(column=1, row=0, rowspan=2)
 
-        validateBtn = Button(window, text='Valider', command=self.validate)
+        validateBtn = Button(self.window, text='Valider', command=self.window.quit)
         validateBtn.grid(column=1, row=2)
 
         window.mainloop()
         return None
 
     def setVotersListContent(self, content:list):
-        ## TODO
+        #On efface et remet le contenu de la listbox de façon à éviter les doublons
+        self.votersList.delete(0, END)
+        self.votersList.insert(content)
         return None
 
     def setCandidatesList(self, content:list):
-        ## TODO
+        #On efface et remet le contenu de la listbox de façon à éviter les doublons
+        self.candidatesList.delete(0, END)
+        self.candidatesList.insert(content)
         return None
 
     def onVoterAddBtnClick(self):
-        ## TODO
+        ctrl.voterAddBtnClick()
         return None
 
     def onVoterDelBtnClick(self):
-        ## TODO
+        ctrl.voterDelBtnClick()
         return None
 
     def onAddCandidateBtnClick(self):
-        ## TODO
+        ctrl.candidateAddBtnClick()
         return None
 
     def onDelCandidateBtnClick(self):
-        ## TODO
-        return None
-
-    def validate(self):
-        ## TODO
+        ctrl.candidateDelBtnClick()
         return None
