@@ -38,8 +38,7 @@ class Adminview():
 
         votersFrame = LabelFrame(self.window, text='Electeurs')
         self.votersList = Listbox(votersFrame)
-        for voter in self.model.getVoters():
-            self.votersList.insert(0, voter[0] + ' ' + voter[1])
+        self.setVotersListContent(self.model.getVoters())
         self.votersList.grid(column=0, row=1, rowspan=4)
         voterAddBtn = Button(votersFrame, text='Ajouter un électeur', command=self.onVoterAddBtnClick)
         voterAddBtn.grid(column=1, row=3)
