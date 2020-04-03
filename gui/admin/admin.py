@@ -15,24 +15,26 @@ class Admin:
     def __init__(self):
         st = sett.Settings('settings.yaml') #if we want to move the voters
         csvpath = st.getCsvPath()                 #file to another folder
-        csv = csva.CsvActions(csvpath)
+        self.csv = csva.CsvActions(csvpath)
 
-        view = adminview.Adminview()
-        ctrl = admincontroller.Admincontroller(view, self)
-        view.setCtrl(ctrl)
+        self.view = adminview.Adminview(self)
+        self.view.createAndShowWindow()
         return None
 
     def addVoter(self, forename:str, lastname:str, passwordhash:str):
-        csv.addLine(forename, lastname, passwordhash, -1, -1) #vote to -1 to
-        return None                                           #assert that no
-                                                              #vote has been done
+        self.csv.addLine(forename, lastname, passwordhash, -1, -1) #vote to -1 to
+        self.view.setVotersListContent(self.getVoters()) #assert that no
+        return None                                 #vote has been done
+
 
     def delVoter(self, id:int):
-        csv.delById(id)
+        self.csv.delById(id)
         return None
 
     def getVoters(self) -> list:
-        return csv.getAllLines()
+        lines = self.csv.getAllLines()
+        print(lines)
+        return lines
 
 #We'll add methods to edit voters maybe later. Now, we focus on creating a
 #simple but robust app. Furthermore, ideally, we can move the definition of

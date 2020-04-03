@@ -8,12 +8,9 @@ import admincontroller
 
 class Adminview():
 
-    def __init__(self):
-        self.createAndShowWindow()
-        return None
-
-    def setCtrl(self, ctrl:Admincontroller):
-        self.ctrl = ctrl
+    def __init__(self, model):
+        self.model = model
+        self.controller = admincontroller.Admincontroller(self, model)
         return None
 
     def createAndShowWindow(self):
@@ -41,6 +38,8 @@ class Adminview():
 
         votersFrame = LabelFrame(self.window, text='Electeurs')
         self.votersList = Listbox(votersFrame)
+        for voter in self.model.getVoters():
+            self.votersList.insert(0, voter[0] + ' ' + voter[1])
         self.votersList.grid(column=0, row=1, rowspan=4)
         voterAddBtn = Button(votersFrame, text='Ajouter un électeur', command=self.onVoterAddBtnClick)
         voterAddBtn.grid(column=1, row=3)
@@ -60,13 +59,13 @@ class Adminview():
         validateBtn = Button(self.window, text='Valider', command=self.window.quit)
         validateBtn.grid(column=1, row=2)
 
-        window.mainloop()
+        self.window.mainloop()
         return None
 
     def setVotersListContent(self, content:list):
         #On efface et remet le contenu de la listbox de façon à éviter les doublons
         self.votersList.delete(0, END)
-        self.votersList.insert(content)
+        self.votersList.insert(0, content)
         return None
 
     def setCandidatesList(self, content:list):
@@ -76,17 +75,17 @@ class Adminview():
         return None
 
     def onVoterAddBtnClick(self):
-        ctrl.voterAddBtnClick()
+        self.controller.onVoterAddBtnClick()
         return None
 
     def onVoterDelBtnClick(self):
-        ctrl.voterDelBtnClick()
+        self.ctrl.voterDelBtnClick()
         return None
 
     def onAddCandidateBtnClick(self):
-        ctrl.candidateAddBtnClick()
+        self.ctrl.candidateAddBtnClick()
         return None
 
     def onDelCandidateBtnClick(self):
-        ctrl.candidateDelBtnClick()
+        self.ctrl.candidateDelBtnClick()
         return None
