@@ -40,7 +40,6 @@ class CsvActions:
             reader = csv.reader(csvfile, delimiter=' ', quotechar='|')
             for row in reader:
                 votersList.append(row)
-            print(votersList)
         return votersList
 
     def writeRowsToCsv(self, rows:list):

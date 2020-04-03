@@ -33,7 +33,6 @@ class Admin:
 
     def getVoters(self) -> list:
         lines = self.csv.getAllLines()
-        print(lines)
         return lines
 
 #We'll add methods to edit voters maybe later. Now, we focus on creating a
