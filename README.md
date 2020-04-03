@@ -1,4 +1,4 @@
-# Qu'est-ce que VotePlatform
+# Qu'est-ce que PeopleVoice
 Il s'agit du projet d'ISN de Alexis LEBEL, Hugo BOUDRY et Théo PEDROSA. Cela consiste à gérer une élection à partir d'un programme simple en python.
 
 # Puis-je participer ?
