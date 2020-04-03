@@ -9,8 +9,11 @@ import admincontroller
 class Adminview():
 
     def __init__(self):
-        ctrl = admincontroller.Admincontroller()
         self.createAndShowWindow()
+        return None
+
+    def setCtrl(self, ctrl:Admincontroller):
+        self.ctrl = ctrl
         return None
 
     def createAndShowWindow(self):

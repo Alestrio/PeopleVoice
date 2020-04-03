@@ -18,6 +18,8 @@ class Admin:
         csv = csva.CsvActions(csvpath)
 
         view = adminview.Adminview()
+        ctrl = admincontroller.Admincontroller(view, self)
+        view.setCtrl(ctrl)
         return None
 
     def addVoter(self, forename:str, lastname:str, passwordhash:str):
