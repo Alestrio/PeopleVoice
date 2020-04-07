@@ -23,7 +23,7 @@ class Admin:
 
     def addVoter(self, forename:str, lastname:str, passwordhash:str):
         self.csv.addLine(forename, lastname, passwordhash, -1, -1) #vote to -1 to
-        self.view.setVotersListContent(self.getVoters()) #assert that no
+        self.view.setVotersListContent() #assert that no
         return None                                 #vote has been done
 
 
