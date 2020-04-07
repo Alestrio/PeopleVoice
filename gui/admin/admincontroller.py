@@ -60,3 +60,7 @@ class Admincontroller():
     def onVoterDelBtnClick(self, fullname:str):
         self.model.delVoter(fullname)
         return None
+
+    def onAddCandidateBtnClick(self, fullname:str):
+        self.model.addCandidate(fullname)
+        return None

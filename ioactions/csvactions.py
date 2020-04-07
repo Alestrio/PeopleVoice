@@ -60,6 +60,14 @@ class CsvActions:
         self.writeRowsToCsv(tempList)
         return None
 
+    def linkIdAndNames(self, ids:list):
+        lines = self.getAllLines()
+        fullnames = list()
+        for id in ids:
+            line = lines[int(id)]
+            fullnames.append(line[0] + " " + line[1])
+        return fullnames
+
     #debug function
     def sayHi(self):
         print('hi')

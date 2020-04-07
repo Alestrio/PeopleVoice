@@ -49,6 +49,7 @@ class Adminview():
         candidatesFrame = LabelFrame(self.window, text='Candidats')
         self.candidatesList = Listbox(candidatesFrame)
         self.candidatesList.grid(column=0, columnspan=2, row=0, rowspan=6)
+        self.setCandidatesList()
         candidateAddBtn = Button(candidatesFrame, text='Ajouter un candidat', command=self.onAddCandidateBtnClick)
         candidateAddBtn.grid(column=0, row=6)
         candidateDelBtn = Button(candidatesFrame, text='Supprimer un candidat', command=self.onDelCandidateBtnClick)
@@ -70,9 +71,9 @@ class Adminview():
 
     def setCandidatesList(self):
         #On efface et remet le contenu de la listbox de façon à éviter les doublons
-        self.votersList.delete(0, END)
-        for voter in self.model.getVoters():
-            self.votersList.insert(0, voter[0] + ' ' + voter[1])
+        self.candidatesList.delete(0, END)
+        for fullname in self.model.getCandidates():
+            self.candidatesList.insert(0, fullname)
         return None
 
     def onVoterAddBtnClick(self):
@@ -85,9 +86,9 @@ class Adminview():
         return None
 
     def onAddCandidateBtnClick(self):
-        self.ctrl.candidateAddBtnClick()
+        self.controller.onAddCandidateBtnClick(self.votersList.get(self.votersList.curselection()))
         return None
 
     def onDelCandidateBtnClick(self):
-        self.ctrl.candidateDelBtnClick()
+        self.controller.candidateDelBtnClick()
         return None

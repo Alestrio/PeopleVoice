@@ -1,8 +1,4 @@
-candidates :
-  -
-
-
-
-adminid : ""
-adminpwhash : ""
-csvpath : "voters.csv"
+adminid: ''
+adminpwhash: ''
+candidates: ' 0'
+csvpath: voters.csv

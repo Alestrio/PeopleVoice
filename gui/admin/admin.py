@@ -13,8 +13,8 @@ import settings as sett
 class Admin:
 
     def __init__(self):
-        st = sett.Settings('settings.yaml') #if we want to move the voters
-        csvpath = st.getCsvPath()                 #file to another folder
+        self.st = sett.Settings('settings.yaml') #if we want to move the voters
+        csvpath = self.st.getCsvPath()                 #file to another folder
         self.csv = csva.CsvActions(csvpath)
 
         self.view = adminview.Adminview(self)
@@ -35,6 +35,17 @@ class Admin:
     def getVoters(self) -> list:
         lines = self.csv.getAllLines()
         return lines
+
+    def addCandidate(self, fullname:str):
+        votersList = self.getVoters()
+        self.st.addCandidateByFullName(fullname, votersList)
+        self.view.setCandidatesList()
+        return None
+
+    def getCandidates(self):
+        ids = self.st.getCandidatesId().split(" ")[1:]
+        fullnames = self.csv.linkIdAndNames(ids)
+        return fullnames
 
 #We'll add methods to edit voters maybe later. Now, we focus on creating a
 #simple but robust app. Furthermore, ideally, we can move the definition of
