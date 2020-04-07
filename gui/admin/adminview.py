@@ -80,7 +80,8 @@ class Adminview():
         return None
 
     def onVoterDelBtnClick(self):
-        self.ctrl.voterDelBtnClick()
+        id = self.votersList.get(self.votersList.curselection())
+        self.controller.onVoterDelBtnClick(id)
         return None
 
     def onAddCandidateBtnClick(self):

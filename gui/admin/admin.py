@@ -23,12 +23,13 @@ class Admin:
 
     def addVoter(self, forename:str, lastname:str, passwordhash:str):
         self.csv.addLine(forename, lastname, passwordhash, -1, -1) #vote to -1 to
-        self.view.setVotersListContent() #assert that no
+        self.view.setVotersListContent()        #assert that no
         return None                                 #vote has been done
 
 
-    def delVoter(self, id:int):
-        self.csv.delById(id)
+    def delVoter(self, fullname:str):
+        self.csv.delByFullName(fullname)
+        self.view.setVotersListContent()
         return None
 
     def getVoters(self) -> list:

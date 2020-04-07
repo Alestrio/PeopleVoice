@@ -54,5 +54,9 @@ class Admincontroller():
         hashedPassword = bhashedPassword.hexdigest()
 
         self.model.addVoter(forename, lastname, hashedPassword)
-#        self.dialog.quit()
+        #self.dialog.quit()
+        return None
+
+    def onVoterDelBtnClick(self, fullname:str):
+        self.model.delVoter(fullname)
         return None
