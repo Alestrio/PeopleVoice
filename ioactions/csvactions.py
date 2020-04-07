@@ -48,10 +48,16 @@ class CsvActions:
             writer.writerows(rows)
         return None
 
-    def delById(self, id:int):
+    def delByFullName(self, fullname:str):
         votersList = self.getAllLines()
-        votersList.remove(votersList[id])
-        self.writeRowsToCsv(votersList)
+        names = fullname.split(" ")
+        forename = names[0]
+        lastname = names[1]
+        tempList = list()
+        for line in votersList:
+            if not forename == line[0] and not lastname == line[1]:
+                tempList.append(line)
+        self.writeRowsToCsv(tempList)
         return None
 
     #debug function
