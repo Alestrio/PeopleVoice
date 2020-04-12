@@ -80,8 +80,3 @@ class CsvActions:
             if forename == line[0] and lastname == line[1]:
                 id = lines.index(line)
         return id
-
-    #debug function
-    def sayHi(self):
-        print('hi')
-        return None
