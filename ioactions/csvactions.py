@@ -61,12 +61,25 @@ class CsvActions:
         return None
 
     def linkIdAndNames(self, ids:list):
-        lines = self.getAllLines()
-        fullnames = list()
-        for id in ids:
-            line = lines[int(id)]
-            fullnames.append(line[0] + " " + line[1])
+        fullnames = ''
+        if ids != ['']:
+            lines = self.getAllLines()
+            fullnames = list()
+            for id in ids:
+                line = lines[int(id)]
+                fullnames.append(line[0] + " " + line[1])
         return fullnames
+
+    def linkNameAndId(self, fullname:str):
+        names = fullname.split(" ")
+        forename = names[0]
+        lastname = names[1]
+        lines = self.getAllLines()
+        id = -1
+        for line in lines:
+            if forename == line[0] and lastname == line[1]:
+                id = lines.index(line)
+        return id
 
     #debug function
     def sayHi(self):

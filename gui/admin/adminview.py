@@ -90,5 +90,6 @@ class Adminview():
         return None
 
     def onDelCandidateBtnClick(self):
-        self.controller.candidateDelBtnClick()
+        fullname = self.candidatesList.get(self.candidatesList.curselection())
+        self.controller.candidateDelBtnClick(fullname)
         return None

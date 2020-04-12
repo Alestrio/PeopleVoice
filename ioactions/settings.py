@@ -20,6 +20,13 @@ class Settings():
             yaml.dump(self.properties, yamlfile)
         return None
 
+    def stringifyCandidates(self, ids:list):
+        newValue = ''
+        for id in ids:
+            newValue += str(id) + " "
+        newValue = newValue[:1]
+        return newValue
+
     def getAdminIdentifier(self) -> str:
         return self.properties.get('adminid')
 
@@ -39,9 +46,14 @@ class Settings():
         for line in votersList:
             if forename == line[0] and lastname == line[1]:
                 id = votersList.index(line)
-        items = current.split(" ")
-        for i in items:
-            newContent += i + " "
-        newContent += str(id)
-        self.setCandidatesId(newContent)
+        items = current.split(" ")[1:]
+        items.append(id)
+        self.setCandidatesId(self.stringifyCandidates(items))
+        return None
+
+    def delCandidateById(self, id:int):
+        ids = self.getCandidatesId()
+        ids = ids.split(' ')
+        ids.remove(ids[id])
+        self.setCandidatesId(self.stringifyCandidates(ids))
         return None

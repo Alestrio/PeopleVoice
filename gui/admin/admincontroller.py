@@ -64,3 +64,7 @@ class Admincontroller():
     def onAddCandidateBtnClick(self, fullname:str):
         self.model.addCandidate(fullname)
         return None
+
+    def candidateDelBtnClick(self, fullname:str):
+        self.model.delCandidate(fullname)
+        return None

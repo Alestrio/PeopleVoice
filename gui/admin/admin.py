@@ -42,8 +42,17 @@ class Admin:
         self.view.setCandidatesList()
         return None
 
+    def delCandidate(self, fullname:str):
+        id = self.csv.linkNameAndId(fullname)
+        if id != -1:
+            self.st.delCandidateById(id)
+            self.view.setCandidatesList()
+        else:
+            print("Error : candidate id = -1")
+        return None
+
     def getCandidates(self):
-        ids = self.st.getCandidatesId().split(" ")[1:]
+        ids = self.st.getCandidatesId().split(" ")#[1:]
         fullnames = self.csv.linkIdAndNames(ids)
         return fullnames
 
