@@ -77,7 +77,7 @@ class Adminview():
         return None
 
     def onVoterAddBtnClick(self):
-        self.controller.onVoterAddBtnClick()
+        self.createVoterAddWindow()
         return None
 
     def onVoterDelBtnClick(self):
@@ -108,4 +108,27 @@ class Adminview():
         passLabel = Label(dialog, text=content)
         passLabel.pack()
         dialog.mainloop()
+        return None
+
+    def createVoterAddWindow(self):
+        dialog = Tk()
+        self.forenameEntry = Entry(dialog)
+        self.lastnameEntry = Entry(dialog)
+        dialog.title('PeopleVoice - Ajouter un électeur')
+
+        forenameLabel = Label(dialog, text='Prénom :')
+        forenameLabel.grid(column=0, row=0)
+        self.forenameEntry.grid(column=1, row=0)
+
+        lastnameLabel = Label(dialog, text='Nom :')
+        lastnameLabel.grid(column=0, row=1)
+        self.lastnameEntry.grid(column=1, row=1)
+
+        validatebtn = Button(dialog, text='Valider', command=self.validateAddVoter)
+        validatebtn.grid(column=1, row=2)
+        dialog.mainloop()
+        return None
+
+    def validateAddVoter(self):
+        self.controller.validateAddVoter(self.forenameEntry.get(), self.lastnameEntry.get())
         return None
