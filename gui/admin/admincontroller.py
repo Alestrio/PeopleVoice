@@ -48,7 +48,7 @@ class Admincontroller():
         for i in range(0,9):
             password += random.choice(string.ascii_letters)
         #Saving that password to display them all at the end of the config
-        self.passwords.append(lastname + " " + forename + " " + ':' + " " + password)
+        self.passwords.append(lastname + " " + forename + " " + '::' + " " + password)
         #password encoding:
         bhashedPassword = hashlib.md5(password.encode())
         hashedPassword = bhashedPassword.hexdigest()
@@ -67,4 +67,10 @@ class Admincontroller():
 
     def candidateDelBtnClick(self, fullname:str):
         self.model.delCandidate(fullname)
+        return None
+
+    def validate(self, FT_maj:str, ST_maj:str):
+        self.model.setFt_maj(FT_maj)
+        self.model.setSt_maj(ST_maj)
+        self.view.showPasswords(self.passwords)
         return None

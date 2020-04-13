@@ -57,3 +57,19 @@ class Settings():
         ids.remove(ids[id])
         self.setCandidatesId(self.stringifyCandidates(ids))
         return None
+
+    def setFt_maj(self, maj:str):
+        self.properties['ft_maj'] = maj
+        with open(self.PATH, "w") as yamlfile:
+            yaml.dump(self.properties, yamlfile)
+        return None
+
+    def setSt_maj(self, maj:str):
+        self.properties['st_maj'] = maj
+        with open(self.PATH, "w") as yamlfile:
+            yaml.dump(self.properties, yamlfile)
+        return None
+
+    def clean(self):
+        self.setCandidatesId('')
+        return None

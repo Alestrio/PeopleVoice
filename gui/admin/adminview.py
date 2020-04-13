@@ -56,7 +56,7 @@ class Adminview():
         candidateDelBtn.grid(column=0, row=7)
         candidatesFrame.grid(column=1, row=0, rowspan=2)
 
-        validateBtn = Button(self.window, text='Valider', command=self.window.quit)
+        validateBtn = Button(self.window, text='Valider', command=self.onValidateBtnClick)
         validateBtn.grid(column=1, row=2)
 
         self.window.mainloop()
@@ -92,4 +92,20 @@ class Adminview():
     def onDelCandidateBtnClick(self):
         fullname = self.candidatesList.get(self.candidatesList.curselection())
         self.controller.candidateDelBtnClick(fullname)
+        return None
+
+    def onValidateBtnClick(self):
+        self.window.destroy()
+        self.controller.validate(self.FT_maj.get(), self.ST_maj.get())
+        return None
+
+    def showPasswords(self, passwords:list):
+        dialog = Tk()
+        dialog.title('PeopleVoice - Mots de passe')
+        content = 'Utilisateur :: Mot de passe\n'
+        for pw in passwords:
+            content = content + pw + '\n'
+        passLabel = Label(dialog, text=content)
+        passLabel.pack()
+        dialog.mainloop()
         return None
