@@ -70,6 +70,16 @@ class Settings():
             yaml.dump(self.properties, yamlfile)
         return None
 
+    def setAdminId(self, id:str):
+        self.properties['adminid'] = id
+        with open(self.PATH, "w") as yamlfile:
+            yaml.dump(self.properties, yamlfile) # TODO: method to dump
+
+    def setAdminPW(self, pw:str):
+        self.properties['adminpw'] = pw
+        with open(self.PATH, "w") as yamlfile:
+            yaml.dump(self.properties, yamlfile) # TODO: method to dump
+
     def clean(self):
         self.setCandidatesId('')
         return None

@@ -4,12 +4,15 @@
 import sys
 sys.path.insert(0, "ioactions")
 sys.path.insert(0, "gui/admin")
+sys.path.insert(0, "gui/configurator")
+
 
 import csvactions as csvactions
 import settings as settings
 import admin
+import configurator
 
-adm = admin.Admin()
+config =  configurator.Configurator()
 
 
 #csvpath = ""
