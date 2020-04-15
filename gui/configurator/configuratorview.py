@@ -9,6 +9,7 @@ from tkinter import messagebox as mb
 class Configuratorview:
 
     def __init__(self, controller):
+        self.hasSucceeded = False
         self.controller = controller
         return None
 
@@ -36,8 +37,18 @@ class Configuratorview:
         return None
 
     def validate(self):
-        if self.controller.validate(self.idTF.get(), self.pwTF.get(), self.confPWTF.get()):
-            self.window.quit()
+        if self.sanityCheck():
+            if self.controller.validate(self.idTF.get(), self.pwTF.get(), self.confPWTF.get()):
+                self.hasSucceeded = True
+                self.window.quit()
+            else:
+                mb.showerror(title='PeopleVoice - Premier démarrage', message='Les mots de passe ne correspondent pas.')
         else:
-            mb.showerror(title='PeopleVoice - Premier démarrage', message='Les mots de passe ne correspondent pas.')
+            mb.showerror('PeopleVoice - Premier démarrage', 'Entrée invalide')
         return None
+
+    def sanityCheck(self) -> bool:
+        if self.idTF.get() != '' and self.pwTF.get() != '' and self.confPWTF.get() != '':
+            return True
+        else:
+            return False

@@ -8,7 +8,7 @@ import configuratorview
 import sys
 sys.path.insert(0, "../../ioactions")
 import settings as sett
-import csvactions as csva 
+import csvactions as csva
 import hashlib
 
 class Configurator:
@@ -32,3 +32,6 @@ class Configurator:
         hashedpw = bhashedpw.hexdigest()
         self.st.setAdminPW(hashedpw)
         return None
+
+    def hasSucceeded(self) -> bool:
+        return self.view.hasSucceeded
