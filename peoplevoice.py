@@ -15,7 +15,6 @@ import adminlogin
 import configurator
 
 sett = settings.Settings('settings.yaml')
-#adm = admin.Admin()
 #csvpath = ""
 #settingspath = ""
 
@@ -27,6 +26,7 @@ def isFirstRun() -> bool:
 
 if isFirstRun():
     config =  configurator.Configurator()
-    adminlog = adminlogin.Adminlogin(sett.getAdminPWHash(),sett.getAdminIdentifier())
-else:
-    adminlog = adminlogin.Adminlogin(sett.getAdminPWHash(), sett.getAdminIdentifier())
+    if config.hasSucceeded():
+        adminlog = adminlogin.Adminlogin(sett.getAdminPWHash(), sett.getAdminIdentifier())
+        if adminlog.isAccessGranted():
+            adm = admin.Admin()
