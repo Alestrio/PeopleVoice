@@ -81,13 +81,13 @@ class Settings():
             yaml.dump(self.properties, yamlfile) # TODO: method to dump
 
     def isAdminIdNull(self) -> bool:
-        if self.properties['adminid'] = '':
+        if self.properties['adminid'] == '':
             return True
         else:
             return False
 
     def isAdminPWNull(self) -> bool:
-        if self.properties['adminpw'] = '':
+        if self.properties['adminpw'] == '':
             return True
         else:
             return False
