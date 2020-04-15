@@ -8,6 +8,7 @@ import hashlib
 class Adminlogin():
 
     def __init__(self, adminPWHash:str, id:str):
+        self.accessGranted = False
         self.hash = adminPWHash
         self.id = id
         self.window = Tk()
@@ -32,7 +33,10 @@ class Adminlogin():
         hashedUserEntry = bhashedUserEntry.hexdigest()
         if hashedUserEntry == self.hash and id == self.id:
             self.window.quit()
-            ## TODO: Next step
+            self.accessGranted = True
         else:
             mb.showerror('Erreur d\'identification', 'Identifiant ou mot de passe incorrect.')
         return None
+
+    def isAccessGranted(self) -> bool:
+        return self.accessGranted
