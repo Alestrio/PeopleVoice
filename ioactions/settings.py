@@ -17,7 +17,7 @@ class Settings():
     def setCandidatesId(self, candidates:str):
         self.properties['candidates'] = candidates
         with open(self.PATH, "w") as yamlfile:
-            yaml.dump(self.properties, yamlfile)
+            yaml.dump(self.properties, yamlfile) # TODO: method to dump
         return None
 
     def stringifyCandidates(self, ids:list):
@@ -61,13 +61,13 @@ class Settings():
     def setFt_maj(self, maj:str):
         self.properties['ft_maj'] = maj
         with open(self.PATH, "w") as yamlfile:
-            yaml.dump(self.properties, yamlfile)
+            yaml.dump(self.properties, yamlfile) # TODO: method to dump
         return None
 
     def setSt_maj(self, maj:str):
         self.properties['st_maj'] = maj
         with open(self.PATH, "w") as yamlfile:
-            yaml.dump(self.properties, yamlfile)
+            yaml.dump(self.properties, yamlfile) # TODO: method to dump
         return None
 
     def setAdminId(self, id:str):
@@ -79,6 +79,19 @@ class Settings():
         self.properties['adminpw'] = pw
         with open(self.PATH, "w") as yamlfile:
             yaml.dump(self.properties, yamlfile) # TODO: method to dump
+
+    def isAdminIdNull(self) -> bool:
+        if self.properties['adminid'] = '':
+            return True
+        else:
+            return False
+
+    def isAdminPWNull(self) -> bool:
+        if self.properties['adminpw'] = '':
+            return True
+        else:
+            return False
+
 
     def clean(self):
         self.setCandidatesId('')

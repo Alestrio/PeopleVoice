@@ -5,15 +5,26 @@ import sys
 sys.path.insert(0, "ioactions")
 sys.path.insert(0, "gui/admin")
 sys.path.insert(0, "gui/configurator")
+sys.path.insert(0, "gui/adminlogin")
 
 
 import csvactions as csvactions
 import settings as settings
 import admin
+import adminlogin
 import configurator
 
-config =  configurator.Configurator()
-
-
+sett = settings.Settings('settings.yaml')
 #csvpath = ""
 #settingspath = ""
+
+def isFirstRun() -> bool:
+    if sett.isAdminIdNull and sett.isAdminPWNull:
+        return True
+    else:
+        return False
+
+# if isFirstRun():
+#     config =  configurator.Configurator()
+# else:
+#     adminlog = adminlogin.Adminlogin()
