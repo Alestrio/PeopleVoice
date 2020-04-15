@@ -32,7 +32,7 @@ class Adminlogin():
         bhashedUserEntry = hashlib.md5(password.encode())
         hashedUserEntry = bhashedUserEntry.hexdigest()
         if hashedUserEntry == self.hash and id == self.id:
-            self.window.quit()
+            self.window.destroy()
             self.accessGranted = True
         else:
             mb.showerror('Erreur d\'identification', 'Identifiant ou mot de passe incorrect.')

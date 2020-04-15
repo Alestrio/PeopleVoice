@@ -40,7 +40,7 @@ class Configuratorview:
         if self.sanityCheck():
             if self.controller.validate(self.idTF.get(), self.pwTF.get(), self.confPWTF.get()):
                 self.hasSucceeded = True
-                self.window.quit()
+                self.window.destroy()
             else:
                 mb.showerror(title='PeopleVoice - Premier démarrage', message='Les mots de passe ne correspondent pas.')
         else:
