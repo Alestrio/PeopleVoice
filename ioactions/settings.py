@@ -31,7 +31,7 @@ class Settings():
         return self.properties.get('adminid')
 
     def getAdminPWHash(self) -> str:
-        return self.properties.get('adminpwhash')
+        return self.properties.get('adminpw')
 
     def getCsvPath(self) -> str:
         return self.properties.get('csvpath')
