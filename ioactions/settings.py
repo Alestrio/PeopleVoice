@@ -11,6 +11,10 @@ class Settings():
             self.properties = yaml.load(yamlfile, Loader=yaml.FullLoader)
         return None
 
+    def reload(self):
+        with open(self.PATH, "r") as yamlfile:
+            self.properties = yaml.load(yamlfile, Loader=yaml.FullLoader)
+
     def getCandidatesId(self) -> list:
         return self.properties.get("candidates")
 
@@ -28,12 +32,15 @@ class Settings():
         return newValue
 
     def getAdminIdentifier(self) -> str:
+        self.reload()
         return self.properties.get('adminid')
 
     def getAdminPWHash(self) -> str:
+        self.reload()
         return self.properties.get('adminpw')
 
     def getCsvPath(self) -> str:
+        self.reload()
         return self.properties.get('csvpath')
 
     def addCandidateByFullName(self, fullname:str, votersList:list):
