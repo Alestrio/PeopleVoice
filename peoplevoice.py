@@ -11,10 +11,11 @@ sys.path.insert(0, "gui/adminlogin")
 import csvactions as csvactions
 import settings as settings
 import admin
-import adminlogin
+#import adminlogin
 import configurator
 
 sett = settings.Settings('settings.yaml')
+adm = admin.Admin()
 #csvpath = ""
 #settingspath = ""
 

@@ -4,6 +4,7 @@
 # the controller.
 #
 from tkinter import * #we need to install that lib beforehand (apt ... python3-tk)
+from tkinter import messagebox as mb
 import admincontroller
 
 class Adminview():
@@ -95,8 +96,9 @@ class Adminview():
         return None
 
     def onValidateBtnClick(self):
-        self.window.destroy()
-        self.controller.validate(self.FT_maj.get(), self.ST_maj.get())
+        if self.sanityCheck():
+            self.window.destroy()
+            self.controller.validate(self.FT_maj.get(), self.ST_maj.get())
         return None
 
     def showPasswords(self, passwords:list):
@@ -132,3 +134,19 @@ class Adminview():
     def validateAddVoter(self):
         self.controller.validateAddVoter(self.forenameEntry.get(), self.lastnameEntry.get())
         return None
+
+    def sanityCheck(self) -> bool:
+        lengthVoters = len(self.model.getVoters())
+        lengthCandidates = len(self.model.getCandidates())
+
+        if lengthVoters == 0:
+            mb.showerror('Pas d\'électeur', 'Veuillez ajouter au moins 1 électeur')
+            return False
+        elif lengthCandidates == 0:
+            mb.showerror('Pas de candidat', 'Veuillez ajouter au moins 1 candidat')
+            return False
+        elif self.FT_maj.get() == '' or self.ST_maj.get() == '':
+            mb.showerror('Type de majorité invalide', 'Veuillez réessayer en sélectionnant les majorités')
+            return False
+        else:
+            return True
