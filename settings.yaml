@@ -1,4 +1,6 @@
-adminid: ''
-adminpwhash: ''
+adminid:
+adminpw:
 candidates: '0'
 csvpath: voters.csv
+ft_maj: absolute
+st_maj: relative
