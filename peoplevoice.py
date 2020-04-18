@@ -3,18 +3,15 @@
 #
 import sys
 sys.path.insert(0, "ioactions")
-sys.path.insert(0, "gui/admin")
-sys.path.insert(0, "gui/configurator")
-sys.path.insert(0, "gui/adminlogin")
+sys.path.insert(0, "gui/launcher")
 
 
 import csvactions as csvactions
 import settings as settings
-import admin
-import adminlogin
-import configurator
+import launcher
 
 sett = settings.Settings('settings.yaml')
+launch = launcher.Launcher()
 #csvpath = ""
 #settingspath = ""
 
@@ -25,8 +22,6 @@ def isFirstRun() -> bool:
         return False
 
 if isFirstRun():
-    config =  configurator.Configurator()
-    if config.hasSucceeded():
-        adminlog = adminlogin.Adminlogin(sett.getAdminPWHash(), sett.getAdminIdentifier())
-        if adminlog.isAccessGranted():
-            adm = admin.Admin()
+    launch.startFirstRun()
+else:
+    launch.startLauncher()
