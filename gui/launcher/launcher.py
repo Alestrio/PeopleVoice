@@ -10,9 +10,11 @@ sys.path.insert(0, "ioactions")
 sys.path.insert(0, "gui/admin")
 sys.path.insert(0, "gui/configurator")
 sys.path.insert(0, "gui/adminlogin")
+sys.path.insert(0, "gui/student")
 import admin
 import adminlogin
 import configurator
+import student
 
 class Launcher:
 
@@ -45,5 +47,6 @@ class Launcher:
         return None
 
     def startStudentMode(self):
-
+        self.view.window.destroy()
+        stud = student.Student()
         return None
