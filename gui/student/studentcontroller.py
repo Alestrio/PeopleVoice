@@ -4,3 +4,8 @@
 # the actions related to those events. That class also gather and send data to and from
 # the model, who does the computation and the link with the rest of the software.
 #
+class Studentcontroller:
+
+    def __init__(self):
+        
+        return None
