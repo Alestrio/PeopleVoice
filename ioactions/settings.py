@@ -28,9 +28,7 @@ class Settings():
         newValue = ''
         for id in ids:
             newValue += str(id) + " "
-        print('\'', newValue, '\'')
         newValue = newValue[:-1]
-        print('\'', newValue, '\'')
         return newValue
 
     def getAdminIdentifier(self) -> str:
@@ -93,7 +91,6 @@ class Settings():
             yaml.dump(self.properties, yamlfile) # TODO: method to dump
 
     def isAdminIdNull(self) -> bool:
-        print(self.properties['adminid'])
         if self.properties['adminid'] == None:
             return True
         else:
