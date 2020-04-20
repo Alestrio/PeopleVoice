@@ -54,8 +54,10 @@ class Admin:
         return None
 
     def getCandidates(self):
-        ids = self.st.getCandidatesId().split(" ")#[1:]
-        fullnames = self.csv.linkIdAndNames(ids)
+        fullnames = ''
+        if self.st.getCandidatesId() != None:
+            ids = self.st.getCandidatesId().split(" ")#[1:]
+            fullnames = self.csv.linkIdAndNames(ids)
         return fullnames
 
     def setFt_maj(self, maj:str):

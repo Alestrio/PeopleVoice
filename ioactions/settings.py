@@ -28,7 +28,9 @@ class Settings():
         newValue = ''
         for id in ids:
             newValue += str(id) + " "
-        newValue = newValue[:1]
+        print('\'', newValue, '\'')
+        newValue = newValue[:-1]
+        print('\'', newValue, '\'')
         return newValue
 
     def getAdminIdentifier(self) -> str:
@@ -53,8 +55,11 @@ class Settings():
         for line in votersList:
             if forename == line[0] and lastname == line[1]:
                 id = votersList.index(line)
-        items = current.split(" ")[1:]
-        items.append(id)
+        if self.getCandidatesId() != None:
+            items = current.split(" ")
+        else:
+            items = list()
+        items.append(str(id))
         self.setCandidatesId(self.stringifyCandidates(items))
         return None
 
@@ -102,5 +107,5 @@ class Settings():
 
 
     def clean(self):
-        self.setCandidatesId('')
+        self.setCandidatesId(None)
         return None
