@@ -5,7 +5,6 @@ import sys
 sys.path.insert(0, "ioactions")
 sys.path.insert(0, "gui/launcher")
 
-
 import csvactions as csvactions
 import settings as settings
 import launcher

@@ -7,8 +7,9 @@ from tkinter import *
 
 class Studentview:
 
-    def __init__(self):
-
+    def __init__(self, model):
+        self.model = model
+        self.controller = model.controller
         return None
 
     def createAndShowWindow(self):
@@ -17,12 +18,12 @@ class Studentview:
 
         pwFrame = LabelFrame(self.window, text='Identification')
         pwLabel = Label(pwFrame, text='Mot de passe :')
-        pwTextField = Entry(pwFrame)
+        self.pwTextField = Entry(pwFrame)
         pwValidateBtn = Button(pwFrame, text='Valider', command=self.pwValidate)
         fullnameInfoLabel = Label(pwFrame, text='Nom / Prénom')
         self.fullnameLabel = Label(pwFrame)
         pwLabel.grid(column=0, row=0)
-        pwTextField.grid(column=1, row=0)
+        self.pwTextField.grid(column=1, row=0)
         pwValidateBtn.grid(column=2, row=0)
         fullnameInfoLabel.grid(column=0, row=1)
         self.fullnameLabel.grid(column=1, row=1)
@@ -30,9 +31,9 @@ class Studentview:
         listsFrame = LabelFrame(self.window, text='Sélection')
         candidatesLabel = Label(listsFrame, text='Candidats')
         votersLabel = Label(listsFrame, text='Electeurs')
-        self.candidatesList = Listbox(listsFrame)
+        self.candidatesList = Listbox(listsFrame, selectmode=MULTIPLE)
         self.setCandidatesListContent()
-        self.votersList = Listbox(listsFrame)
+        self.votersList = Listbox(listsFrame, selectmode=MULTIPLE)
         self.setVotersListContent()
         candidatesLabel.grid(column=0, row=0)
         votersLabel.grid(column=1, row=0)
@@ -50,8 +51,12 @@ class Studentview:
         self.scLabel.grid(row=1, column=1)
 
         actionsFrame = Frame(self.window)
+        setChoice1Btn = Button(actionsFrame, text='Selectionner comme premier choix', command=self.selectAsChoiceOne)
+        setChoice2Btn = Button(actionsFrame, text='Selectionner comme second choix', command=self.selectAsChoiceTwo)
         turnOkBtn = Button(actionsFrame, text='Terminer', command=self.turnOk)
         sessionOkBtn = Button(actionsFrame, text='Terminer la session (admin)', command=self.sessionOk)
+        setChoice1Btn.pack()
+        setChoice2Btn.pack()
         turnOkBtn.pack()
         sessionOkBtn.pack()
 
@@ -65,11 +70,21 @@ class Studentview:
         return None
 
     def pwValidate(self):
-        print(hello)
+        password = self.pwTextField.get()
+        self.controller.validatePw(password)
+        return None
+
+    def updateVoterInfos(self):
+        self.fullnameLabel.set(self.model.currentVoter[0] + ' ' + self.model.currentVoter[1]) ## C'est surement de la merde......
+        return None
+
+    def clearVoterInfos(self):
+        self.fullnameLabel.set('')
         return None
 
     def turnOk(self):
-
+        self.clearVoterInfos()
+        ## TODO: Apply votes
         return None
 
     def sessionOk(self):
@@ -80,6 +95,30 @@ class Studentview:
 
         return None
 
-    def setVotersListContent(self):
+    def setVotersListContent(self):None
+
+        return None
+
+    def selectAsChoiceOne(self):
+        voterSelection = self.votersList.get(self.votersList.curselection())
+        candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
+        self.controller.selectAsChoiceOne(self, voterChoice, candidateChoice)
+        return None
+
+    def updateChoiceOneInfos(self, choiceName:str):
+
+        return None
+
+    def selectAsChoiceTwo(self):
+        voterSelection = self.votersList.get(self.votersList.curselection())
+        candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
+        self.controller.selectAsChoiceTwo(self, voterChoice, candidateChoice)
+        return None
+
+    def updateChoiceTwoInfos(self, choiceName:str):
+
+        return None
+
+    def sanityCheck(self):
 
         return None

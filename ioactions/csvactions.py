@@ -81,6 +81,56 @@ class CsvActions:
                 id = lines.index(line)
         return id
 
+    def linkPasswordAndId(self, password):
+        id = -1
+        voters = self.getAllLines()
+        bhashedPw = hashlib.md5(password.encode())
+        hashedPw = bhashedUserEntry.hexdigest()
+        for voter in voters:
+            if hashedPw == voter[2]:
+                id = voters.index(voter)
+        return id
+
+    def getById(self, id:int):
+        voters = self.getAllLines()
+        return voters[id]
+
+    def isFirstTurn(self):
+        isFirstTurn = False
+        voters = self.getAllLines()
+        for voter in voters:
+            if voter[3] == -1:
+                isFirstTurn = True
+        return isFirstTurn
+
+    def setChoiceOne(self, id:int, voterId:int):
+        voters = self.getAllLines()
+        fullname = self.getById(voterId)[0] + ' ' + self.getById(voterId)[1]
+        if self.isFirstTurn():
+            for voter in voters:
+                if (voter[0] + ' ' + voter[1]) == fullname:
+                    voter[3] = id
+        else:
+            for voter in voters:
+                if (voter[0] + ' ' + voter[1]) == fullname:
+                    voter[5] = id
+        self.writeRowsToCsv(voters)
+        return None
+
+    def setChoiceTwo(self, id:int, voterId:int):
+        voters = self.getAllLines()
+        fullname = self.getById(voterId)[0] + ' ' + self.getById(voterId)[1]
+        if self.isFirstTurn():
+            for voter in voters:
+                if (voter[0] + ' ' + voter[1]) == fullname:
+                    voter[4] = id
+        else:
+            for voter in voters:
+                if (voter[0] + ' ' + voter[1]) == fullname:
+                    voter[6] = id
+        self.writeRowsToCsv(voters)
+        return None
+
     def clean(self):
         self.writeRowsToCsv([])
         return None
