@@ -20,19 +20,19 @@ class CsvActions:
         self.writeRowsToCsv(lines)
         return None
 
-    def setVote(self, id:int, vote1:int, vote2:int):
-        votersList = self.getAllLines()
-        item = votersList[id]
-        splittedItem = item.split(', ') #We split the string we get by ", " to get one element per list item
-        splittedItem[3] = vote1
-        splittedItem[4] = vote2
-        item = ""
-        for i in splittedItem:
-            item.append(i + ", ") #We build the string again
-        item = item[:-1]
-        votersList[id] = item
-        self.writeRowsToCsv(votersList)
-        return None
+    # def setVote(self, id:int, vote1:int, vote2:int):
+    #     votersList = self.getAllLines()
+    #     item = votersList[id]
+    #     splittedItem = item.split(', ') #We split the string we get by ", " to get one element per list item
+    #     splittedItem[3] = vote1
+    #     splittedItem[4] = vote2
+    #     item = ""
+    #     for i in splittedItem:
+    #         item.append(i + ", ") #We build the string again
+    #     item = item[:-1]
+    #     votersList[id] = item
+    #     self.writeRowsToCsv(votersList)
+    #     return None
 
     def getAllLines(self) -> list:
         votersList = list();
