@@ -10,6 +10,9 @@ Il est très important de garder cette architecture
 (à l'exception des fenêtres simples comme les fenêtres de login)
 afin de gagner en lisibilité et en modularité.
 
+# Dépendances du programme :
+- python3-tk
+
 # Comment lancer le programme ?
 Il suffit de lancer le fichier peoplevoice.py avec l’interpréteur Python. Ce
 fichier permet pour l'instant de tester les fonctionnalités au fur et à mesure
