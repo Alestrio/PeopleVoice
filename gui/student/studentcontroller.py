@@ -5,6 +5,10 @@
 # the model, who does the computation and the link with the rest of the software.
 #
 from tkinter import messagebox as mb
+import sys
+sys.path.insert(0, "../adminlogin")
+import adminlogin
+
 class Studentcontroller:
 
     def __init__(self, model):
@@ -20,7 +24,7 @@ class Studentcontroller:
             mb.showerror(title='Erreur de selection', message='Vous ne devez avoir qu\'une sélection pour valider')
         elif voterSelection != None and candidateSelection == None:
             self.model.setChoiceOne(voterSelection)
-        elif candidateSelection != None and voterSelection == None
+        elif candidateSelection != None and voterSelection == None:
             self.model.setChoiceOne(candidateSelection)
         else:
             mb.showerror(title='Erreur', message='Erreur inconnue')
@@ -30,7 +34,13 @@ class Studentcontroller:
             mb.showerror(title='Erreur de selection', message='Vous ne devez avoir qu\'une sélection pour valider')
         elif voterSelection != None and candidateSelection == None:
             self.model.setChoiceTwo(voterSelection)
-        elif candidateSelection != None and voterSelection == None
+        elif candidateSelection != None and voterSelection == None:
             self.model.setChoiceTwo(candidateSelection)
         else:
             mb.showerror(title='Erreur', message='Erreur inconnue')
+
+    def onSessionOk(self):
+        login = adminlogin.Adminlogin()
+        if login.isAccessGranted():
+            self.model.endSession()
+        return None

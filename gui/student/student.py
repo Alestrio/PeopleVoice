@@ -5,6 +5,7 @@
 #
 import studentview
 import studentcontroller
+import sys
 sys.path.insert(0, "../../ioactions") #We need to use sys because those are in
 import csvactions as csva             #another folder
 import settings as sett
@@ -14,10 +15,10 @@ class Student:
     def __init__(self):
         self.controller = studentcontroller.Studentcontroller(self)
         self.view = studentview.Studentview(self)
-        self.view.createAndShowWindow()
         self.st = sett.Settings('settings.yaml') #if we want to move the voters
         csvpath = self.st.getCsvPath()                 #file to another folder
         self.csv = csva.CsvActions(csvpath)
+        self.view.createAndShowWindow()
         return None
 
     def getVoterRow(self, password):
@@ -26,7 +27,7 @@ class Student:
             self.currentVoter = self.csv.getById(id)
             self.view.updateVoterInfos()
         else:
-            print('No user corresponding to that password')
+            print('Aucun utilisateur avec ce mot de passe')
         return id
 
     def setChoiceOne(self, choice:str):
@@ -39,3 +40,17 @@ class Student:
         id = self.csv.linkNameAndId(choice)
         self.csv.setChoiceTwo(id)
         return None
+
+    def endSession(self):
+        self.view.destroyWindow()
+        return None
+
+    def getVoters(self):
+        return self.csv.getAllLines()
+
+    def getCandidates(self):
+        fullnames = ''
+        if self.st.getCandidatesId() != None:
+            ids = self.st.getCandidatesId().split(" ")#[1:]
+            fullnames = self.csv.linkIdAndNames(ids)
+        return fullnames

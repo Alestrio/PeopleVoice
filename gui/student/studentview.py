@@ -53,10 +53,12 @@ class Studentview:
         actionsFrame = Frame(self.window)
         setChoice1Btn = Button(actionsFrame, text='Selectionner comme premier choix', command=self.selectAsChoiceOne)
         setChoice2Btn = Button(actionsFrame, text='Selectionner comme second choix', command=self.selectAsChoiceTwo)
-        turnOkBtn = Button(actionsFrame, text='Terminer', command=self.turnOk)
+        choiceOkBtn = Button(actionsFrame, text='Terminer le choix', command=self.choiceOk)
+        turnOkBtn = Button(actionsFrame, text='Terminer le tour', command=self.turnOk)
         sessionOkBtn = Button(actionsFrame, text='Terminer la session (admin)', command=self.sessionOk)
         setChoice1Btn.pack()
         setChoice2Btn.pack()
+        choiceOkBtn.pack()
         turnOkBtn.pack()
         sessionOkBtn.pack()
 
@@ -83,6 +85,10 @@ class Studentview:
         return None
 
     def turnOk(self):
+
+        return None
+
+    def choiceOk(self):
         self.clearVoterInfos()
         ## TODO: Apply votes
         return None
@@ -92,11 +98,15 @@ class Studentview:
         return None
 
     def setCandidatesListContent(self):
-
+        self.candidatesList.delete(0, END)
+        for fullname in self.model.getCandidates():
+            self.candidatesList.insert(0, fullname)
         return None
 
-    def setVotersListContent(self):None
-
+    def setVotersListContent(self):
+        self.votersList.delete(0, END)
+        for voter in self.model.getVoters():
+            self.votersList.insert(0, voter[0] + ' ' + voter[1])
         return None
 
     def selectAsChoiceOne(self):
@@ -117,6 +127,10 @@ class Studentview:
 
     def updateChoiceTwoInfos(self, choiceName:str):
 
+        return None
+
+    def destroyWindow(self):
+        self.window.destroy()
         return None
 
     def sanityCheck(self):
