@@ -15,32 +15,20 @@ class Studentcontroller:
         self.model = model
         return None
 
-    def validatePw(self, password:str):
-        model.getVoterRow(password)
-        return None
-
-    def selectAsChoiceOne(self, voterChoice, candidateChoice):
-        if voterSelection != None and candidateSelection != None:
-            mb.showerror(title='Erreur de selection', message='Vous ne devez avoir qu\'une sélection pour valider')
-        elif voterSelection != None and candidateSelection == None:
-            self.model.setChoiceOne(voterSelection)
-        elif candidateSelection != None and voterSelection == None:
-            self.model.setChoiceOne(candidateSelection)
-        else:
-            mb.showerror(title='Erreur', message='Erreur inconnue')
-
-    def selectAsChoiceTwo(self, voterChoice, candidateChoice):
-        if voterSelection != None and candidateSelection != None:
-            mb.showerror(title='Erreur de selection', message='Vous ne devez avoir qu\'une sélection pour valider')
-        elif voterSelection != None and candidateSelection == None:
-            self.model.setChoiceTwo(voterSelection)
-        elif candidateSelection != None and voterSelection == None:
-            self.model.setChoiceTwo(candidateSelection)
-        else:
-            mb.showerror(title='Erreur', message='Erreur inconnue')
+    # def validatePw(self, password:str):
+    #     voter = self.model.getVoterRow(password)
+    #     self.view.updateVoterInfos(voter[0] + ' ' + voter[1])
+    #     return None
 
     def onSessionOk(self):
         login = adminlogin.Adminlogin()
         if login.isAccessGranted():
             self.model.endSession()
         return None
+
+    def showMbSecondTurn(self):
+        mb.showinfo(title='Tour suivant', message='Le système passe au second tour')
+        return None
+
+    def showMbNoChoice(self):
+        mb.showerror(title='Erreur', message='Vous devez selectionnner une personne')

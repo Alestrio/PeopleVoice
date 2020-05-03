@@ -2,6 +2,7 @@
 # Copyright (c) 2020 by Alexis LEBEL, BOUDRY Hugo and PEDROSA Théo. All Rights Reserved.
 #
 import csv
+import hashlib
 
 class CsvActions:
 
@@ -14,25 +15,11 @@ class CsvActions:
         self.PATH = topath;
         return None
 
-    def addLine(self, forename:str, lastname:str, password:str, vote1:int, vote2:int): #Votes are int because the ID of the given person is specified
+    def addLine(self, forename:str, lastname:str, password:str, vote1:int, vote2:int, vote3:int, vote4:int): #Votes are int because the ID of the given person is specified
         lines = self.getAllLines()
-        lines.append([forename, lastname, password, vote1, vote2])
+        lines.append([forename, lastname, password, vote1, vote2, vote3, vote4])
         self.writeRowsToCsv(lines)
         return None
-
-    # def setVote(self, id:int, vote1:int, vote2:int):
-    #     votersList = self.getAllLines()
-    #     item = votersList[id]
-    #     splittedItem = item.split(', ') #We split the string we get by ", " to get one element per list item
-    #     splittedItem[3] = vote1
-    #     splittedItem[4] = vote2
-    #     item = ""
-    #     for i in splittedItem:
-    #         item.append(i + ", ") #We build the string again
-    #     item = item[:-1]
-    #     votersList[id] = item
-    #     self.writeRowsToCsv(votersList)
-    #     return None
 
     def getAllLines(self) -> list:
         votersList = list();
@@ -85,7 +72,7 @@ class CsvActions:
         id = -1
         voters = self.getAllLines()
         bhashedPw = hashlib.md5(password.encode())
-        hashedPw = bhashedUserEntry.hexdigest()
+        hashedPw = bhashedPw.hexdigest()
         for voter in voters:
             if hashedPw == voter[2]:
                 id = voters.index(voter)
@@ -99,28 +86,32 @@ class CsvActions:
         isFirstTurn = False
         voters = self.getAllLines()
         for voter in voters:
-            if voter[3] == -1:
+            if voter[3] == '-1' or voter[5] == '-1':
                 isFirstTurn = True
+        print(isFirstTurn)
         return isFirstTurn
 
-    def setChoiceOne(self, id:int, voterId:int):
+    def setChoiceOne(self, id:int, voterId:int, forceSecTurn = False):
         voters = self.getAllLines()
+        print(forceSecTurn)
         fullname = self.getById(voterId)[0] + ' ' + self.getById(voterId)[1]
-        if self.isFirstTurn():
+        if self.isFirstTurn() and not forceSecTurn:
             for voter in voters:
                 if (voter[0] + ' ' + voter[1]) == fullname:
+                    print(voter)
                     voter[3] = id
         else:
             for voter in voters:
                 if (voter[0] + ' ' + voter[1]) == fullname:
+                    print(voter)
                     voter[5] = id
         self.writeRowsToCsv(voters)
         return None
 
-    def setChoiceTwo(self, id:int, voterId:int):
+    def setChoiceTwo(self, id:int, voterId:int, forceSecTurn = False):
         voters = self.getAllLines()
         fullname = self.getById(voterId)[0] + ' ' + self.getById(voterId)[1]
-        if self.isFirstTurn():
+        if self.isFirstTurn() and not forceSecTurn:
             for voter in voters:
                 if (voter[0] + ' ' + voter[1]) == fullname:
                     voter[4] = id

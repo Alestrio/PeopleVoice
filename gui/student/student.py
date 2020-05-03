@@ -18,6 +18,7 @@ class Student:
         self.st = sett.Settings('settings.yaml') #if we want to move the voters
         csvpath = self.st.getCsvPath()                 #file to another folder
         self.csv = csva.CsvActions(csvpath)
+        self.forceSecTurn = False
         self.view.createAndShowWindow()
         return None
 
@@ -33,12 +34,15 @@ class Student:
     def setChoiceOne(self, choice:str):
         id = self.csv.linkNameAndId(choice)
         voterId = self.csv.linkNameAndId(self.currentVoter[0] + ' ' + self.currentVoter[1])
-        self.csv.setChoiceOne(id, voterId)
+        self.csv.setChoiceOne(id, voterId, self.forceSecTurn)
+        self.view.updateChoiceOneInfos(choice)
         return None
 
     def setChoiceTwo(self, choice:str):
         id = self.csv.linkNameAndId(choice)
-        self.csv.setChoiceTwo(id)
+        voterId = self.csv.linkNameAndId(self.currentVoter[0] + ' ' + self.currentVoter[1])
+        self.csv.setChoiceTwo(id, voterId, self.forceSecTurn)
+        self.view.updateChoiceTwoInfos(choice)
         return None
 
     def endSession(self):

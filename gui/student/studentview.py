@@ -31,9 +31,9 @@ class Studentview:
         listsFrame = LabelFrame(self.window, text='Sélection')
         candidatesLabel = Label(listsFrame, text='Candidats')
         votersLabel = Label(listsFrame, text='Electeurs')
-        self.candidatesList = Listbox(listsFrame, selectmode=MULTIPLE)
+        self.candidatesList = Listbox(listsFrame)
         self.setCandidatesListContent()
-        self.votersList = Listbox(listsFrame, selectmode=MULTIPLE)
+        self.votersList = Listbox(listsFrame)
         self.setVotersListContent()
         candidatesLabel.grid(column=0, row=0)
         votersLabel.grid(column=1, row=0)
@@ -73,19 +73,20 @@ class Studentview:
 
     def pwValidate(self):
         password = self.pwTextField.get()
-        self.controller.validatePw(password)
+        self.model.getVoterRow(password)
         return None
 
     def updateVoterInfos(self):
-        self.fullnameLabel.set(self.model.currentVoter[0] + ' ' + self.model.currentVoter[1]) ## C'est surement de la merde......
+        self.fullnameLabel['text'] = self.model.currentVoter[0] + ' ' + self.model.currentVoter[1]
         return None
 
     def clearVoterInfos(self):
-        self.fullnameLabel.set('')
+        self.fullnameLabel['text'] = ''
         return None
 
     def turnOk(self):
-
+        self.model.forceSecTurn = True
+        self.controller.showMbSecondTurn()
         return None
 
     def choiceOk(self):
@@ -110,23 +111,33 @@ class Studentview:
         return None
 
     def selectAsChoiceOne(self):
-        voterSelection = self.votersList.get(self.votersList.curselection())
-        candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
-        self.controller.selectAsChoiceOne(self, voterChoice, candidateChoice)
+        if self.votersList.curselection() != '':
+            voterSelection = self.votersList.get(self.votersList.curselection())
+            self.model.setChoiceOne(voterSelection)
+        elif self.candidatesList.curselection() != '':
+            candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
+            self.model.setChoiceOne(candidateSelection)
+        else:
+            self.controller.showMbNoChoice()
         return None
 
     def updateChoiceOneInfos(self, choiceName:str):
-
+        self.fcLabel['text'] = choiceName
         return None
 
     def selectAsChoiceTwo(self):
-        voterSelection = self.votersList.get(self.votersList.curselection())
-        candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
-        self.controller.selectAsChoiceTwo(self, voterChoice, candidateChoice)
+        if self.votersList.curselection() != '':
+            voterSelection = self.votersList.get(self.votersList.curselection())
+            self.model.setChoiceTwo(voterSelection)
+        elif self.candidatesList.curselection() != '':
+            candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
+            self.model.setChoiceTwo(candidateSelection)
+        else:
+            self.controller.showMbNoChoice()
         return None
 
     def updateChoiceTwoInfos(self, choiceName:str):
-
+        self.scLabel['text'] = choiceName
         return None
 
     def destroyWindow(self):
