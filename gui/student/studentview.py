@@ -54,7 +54,7 @@ class Studentview:
         setChoice1Btn = Button(actionsFrame, text='Selectionner comme premier choix', command=self.selectAsChoiceOne)
         setChoice2Btn = Button(actionsFrame, text='Selectionner comme second choix', command=self.selectAsChoiceTwo)
         choiceOkBtn = Button(actionsFrame, text='Terminer le choix', command=self.choiceOk)
-        turnOkBtn = Button(actionsFrame, text='Terminer le tour', command=self.turnOk)
+        turnOkBtn = Button(actionsFrame, text='Terminer le tour (admin)', command=self.turnOk)
         sessionOkBtn = Button(actionsFrame, text='Terminer la session (admin)', command=self.sessionOk)
         setChoice1Btn.pack()
         setChoice2Btn.pack()
@@ -90,12 +90,11 @@ class Studentview:
         return None
 
     def choiceOk(self):
-        self.clearVoterInfos()
-        ## TODO: Apply votes
+        self.controller.choiceOk()
         return None
 
     def sessionOk(self):
-
+        ## TODO : J'ai pas envie
         return None
 
     def setCandidatesListContent(self):
@@ -144,6 +143,11 @@ class Studentview:
         self.window.destroy()
         return None
 
-    def sanityCheck(self):
+    def clearChoicesInfos(self):
+        self.fcLabel['text'] = ''
+        self.scLabel['text'] = ''
+        return None
 
+    def sanityCheck(self):
+        ## TODO: J'ai pas envie
         return None

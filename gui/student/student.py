@@ -17,6 +17,7 @@ class Student:
         self.view = studentview.Studentview(self)
         self.st = sett.Settings('settings.yaml') #if we want to move the voters
         csvpath = self.st.getCsvPath()                 #file to another folder
+        self.controller.setView()
         self.csv = csva.CsvActions(csvpath)
         self.forceSecTurn = False
         self.view.createAndShowWindow()
@@ -58,3 +59,7 @@ class Student:
             ids = self.st.getCandidatesId().split(" ")#[1:]
             fullnames = self.csv.linkIdAndNames(ids)
         return fullnames
+
+    def clearCurrentVoter(self):
+        self.currentVoter = None
+        return None

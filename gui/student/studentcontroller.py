@@ -15,10 +15,9 @@ class Studentcontroller:
         self.model = model
         return None
 
-    # def validatePw(self, password:str):
-    #     voter = self.model.getVoterRow(password)
-    #     self.view.updateVoterInfos(voter[0] + ' ' + voter[1])
-    #     return None
+    def setView(self):
+        self.view = self.model.view
+        return None
 
     def onSessionOk(self):
         login = adminlogin.Adminlogin()
@@ -32,3 +31,9 @@ class Studentcontroller:
 
     def showMbNoChoice(self):
         mb.showerror(title='Erreur', message='Vous devez selectionnner une personne')
+
+    def choiceOk(self):
+        self.model.clearCurrentVoter()
+        self.view.clearVoterInfos()
+        self.view.clearChoicesInfos()
+        return None
