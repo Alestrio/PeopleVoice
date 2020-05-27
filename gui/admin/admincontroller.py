@@ -11,6 +11,7 @@ from tkinter import *
 import random
 import string
 import hashlib
+from tkinter import messagebox as mb
 
 class Admincontroller():
 
@@ -21,35 +22,57 @@ class Admincontroller():
         return None
 
 
-    def validateAddVoter(self, forename, lastname):
+    def validateAddVoter(self):
+        fullname = self.view.getNewVoterFullname()
         #password generation:
         password = ''
         for i in range(0,9):
             password += random.choice(string.ascii_letters)
         #Saving that password to display them all at the end of the config
-        self.passwords.append(lastname + " " + forename + " " + '::' + " " + password)
+        self.passwords.append(fullname[1] + " " + fullname[0] + " " + '::' + " " + password)
         #password encoding:
         bhashedPassword = hashlib.md5(password.encode())
         hashedPassword = bhashedPassword.hexdigest()
 
-        self.model.addVoter(forename, lastname, hashedPassword)
+        self.model.addVoter(fullname[0], fullname[1], hashedPassword)
         #self.dialog.quit()
         return None
 
-    def onVoterDelBtnClick(self, fullname:str):
-        self.model.delVoter(fullname)
+    def onVoterDelBtnClick(self):
+        self.model.delVoter(self.view.getSelectedVoterFullName())
         return None
 
-    def onAddCandidateBtnClick(self, fullname:str):
-        self.model.addCandidate(fullname)
+    def onAddCandidateBtnClick(self):
+        self.model.addCandidate(self.view.getSelectedVoterFullName())
         return None
 
-    def candidateDelBtnClick(self, fullname:str):
-        self.model.delCandidate(fullname)
+    def candidateDelBtnClick(self):
+        self.model.delCandidate(self.view.getSelectedCandidateFullName())
         return None
 
-    def validate(self, FT_maj:str, ST_maj:str):
-        self.model.setFt_maj(FT_maj)
-        self.model.setSt_maj(ST_maj)
-        self.view.showPasswords(self.passwords)
+    def validate(self):
+        if self.sanityCheck():
+            majTypes = self.view.getMajTypes()
+            self.model.setFt_maj(majTypes[0])
+            self.model.setSt_maj(majTypes[1])
+            self.view.showPasswords(self.passwords)
+            self.view.destroyWindow()
         return None
+
+    def sanityCheck(self) -> bool:
+        listsLengths = self.model.getListsLengths()
+        lengthVoters = listsLengths[0]
+        lengthCandidates = listsLengths[1]
+        majTypes = self.view.getMajTypes()
+
+        if lengthVoters == 0:
+            mb.showerror('Pas d\'électeur', 'Veuillez ajouter au moins 1 électeur')
+            return False
+        elif lengthCandidates == 0:
+            mb.showerror('Pas de candidat', 'Veuillez ajouter au moins 1 candidat')
+            return False
+        elif majTypes[0] == '' or majTypes[1] == '':
+            mb.showerror('Type de majorité invalide', 'Veuillez réessayer en sélectionnant les majorités')
+            return False
+        else:
+            return True

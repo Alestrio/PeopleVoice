@@ -68,6 +68,9 @@ class Admin:
         self.st.setSt_maj(maj)
         return None
 
+    def getListsLengths(self):
+        return (len(self.getVoters()), len(self.getCandidates()))
+
 #We'll add methods to edit voters maybe later. Now, we focus on creating a
 #simple but robust app. Furthermore, ideally, we can move the definition of
 #the settings file to a global variable somewhere in the code.

@@ -41,9 +41,9 @@ class Adminview():
         self.votersList = Listbox(votersFrame)
         self.setVotersListContent()
         self.votersList.grid(column=0, row=1, rowspan=4)
-        voterAddBtn = Button(votersFrame, text='Ajouter un électeur', command=self.onVoterAddBtnClick)
+        voterAddBtn = Button(votersFrame, text='Ajouter un électeur', command=self.createVoterAddWindow)
         voterAddBtn.grid(column=1, row=3)
-        voterDelBtn = Button(votersFrame, text='Supprimer un électeur', command=self.onVoterDelBtnClick)
+        voterDelBtn = Button(votersFrame, text='Supprimer un électeur', command=self.controller.onVoterDelBtnClick)
         voterDelBtn.grid(column=1, row=4)
         votersFrame.grid(column=0, row=1)
 
@@ -51,13 +51,13 @@ class Adminview():
         self.candidatesList = Listbox(candidatesFrame)
         self.candidatesList.grid(column=0, columnspan=2, row=0, rowspan=6)
         self.setCandidatesList()
-        candidateAddBtn = Button(candidatesFrame, text='Ajouter un candidat', command=self.onAddCandidateBtnClick)
+        candidateAddBtn = Button(candidatesFrame, text='Ajouter un candidat', command=self.controller.onAddCandidateBtnClick)
         candidateAddBtn.grid(column=0, row=6)
-        candidateDelBtn = Button(candidatesFrame, text='Supprimer un candidat', command=self.onDelCandidateBtnClick)
+        candidateDelBtn = Button(candidatesFrame, text='Supprimer un candidat', command=self.controller.candidateDelBtnClick)
         candidateDelBtn.grid(column=0, row=7)
         candidatesFrame.grid(column=1, row=0, rowspan=2)
 
-        validateBtn = Button(self.window, text='Valider', command=self.onValidateBtnClick)
+        validateBtn = Button(self.window, text='Valider', command=self.controller.validate)
         validateBtn.grid(column=1, row=2)
 
         self.window.mainloop()
@@ -77,28 +77,17 @@ class Adminview():
             self.candidatesList.insert(0, fullname)
         return None
 
-    def onVoterAddBtnClick(self):
-        self.createVoterAddWindow()
-        return None
+    def getSelectedVoterFullName(self):
+        return self.votersList.get(self.votersList.curselection())
 
-    def onVoterDelBtnClick(self):
-        fullname = self.votersList.get(self.votersList.curselection())
-        self.controller.onVoterDelBtnClick(fullname)
-        return None
+    def getSelectedCandidateFullName(self):
+        return self.candidatesList.get(self.candidatesList.curselection())
 
-    def onAddCandidateBtnClick(self):
-        self.controller.onAddCandidateBtnClick(self.votersList.get(self.votersList.curselection()))
-        return None
+    def getMajTypes(self):
+        return (self.FT_maj.get(), self.ST_maj.get())
 
-    def onDelCandidateBtnClick(self):
-        fullname = self.candidatesList.get(self.candidatesList.curselection())
-        self.controller.candidateDelBtnClick(fullname)
-        return None
-
-    def onValidateBtnClick(self):
-        if self.sanityCheck():
-            self.window.destroy()
-            self.controller.validate(self.FT_maj.get(), self.ST_maj.get())
+    def destroyWindow(self):
+        self.window.destroy()
         return None
 
     def showPasswords(self, passwords:list):
@@ -126,27 +115,10 @@ class Adminview():
         lastnameLabel.grid(column=0, row=1)
         self.lastnameEntry.grid(column=1, row=1)
 
-        validatebtn = Button(dialog, text='Valider', command=self.validateAddVoter)
+        validatebtn = Button(dialog, text='Valider', command=self.controller.validateAddVoter)
         validatebtn.grid(column=1, row=2)
         dialog.mainloop()
         return None
 
-    def validateAddVoter(self):
-        self.controller.validateAddVoter(self.forenameEntry.get(), self.lastnameEntry.get())
-        return None
-
-    def sanityCheck(self) -> bool:
-        lengthVoters = len(self.model.getVoters())
-        lengthCandidates = len(self.model.getCandidates())
-
-        if lengthVoters == 0:
-            mb.showerror('Pas d\'électeur', 'Veuillez ajouter au moins 1 électeur')
-            return False
-        elif lengthCandidates == 0:
-            mb.showerror('Pas de candidat', 'Veuillez ajouter au moins 1 candidat')
-            return False
-        elif self.FT_maj.get() == '' or self.ST_maj.get() == '':
-            mb.showerror('Type de majorité invalide', 'Veuillez réessayer en sélectionnant les majorités')
-            return False
-        else:
-            return True
+    def getNewVoterFullname(self):
+        return (self.forenameEntry.get(), self.lastnameEntry.get())
