@@ -80,6 +80,7 @@ class Studentview:
 
     def clearVoterInfos(self):
         self.fullnameLabel['text'] = ''
+        self.pwTextField.delete(0, 'end')
         return None
 
     def setCandidatesListContent(self):
