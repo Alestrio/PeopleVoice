@@ -37,3 +37,43 @@ class Studentcontroller:
         self.view.clearVoterInfos()
         self.view.clearChoicesInfos()
         return None
+
+    def turnOk(self):
+        self.model.forceSecTurn = True
+        self.controller.showMbSecondTurn()
+        return None
+
+    def pwValidate(self):
+        password = self.view.getPasswordEntry()
+        self.model.getVoterRow(password)
+        return None
+
+    def selectAsChoiceOne(self):
+        voterSel = self.view.getVotersListSelection()
+        candSel = self.view.getCandidatesListSelection()
+        if voterSel != None:
+            self.model.setChoiceOne(voterSel)
+        elif candSel != None:
+            self.model.setChoiceOne(candSel)
+        else:
+            self.showMbNoChoice()
+        return None
+
+    def selectAsChoiceTwo(self):
+        voterSel = self.view.getVotersListSelection()
+        candSel = self.view.getCandidatesListSelection()
+        if voterSel != None:
+            self.model.setChoiceTwo(voterSel)
+        elif candSel != None:
+            self.model.setChoiceTwo(candSel)
+        else:
+            self.showMbNoChoice()
+        return None
+
+    def sessionOk(self):
+        ## TODO : J'ai pas envie
+        return None
+
+    def sanityCheck(self):
+        ## TODO: J'ai pas envie
+        return None

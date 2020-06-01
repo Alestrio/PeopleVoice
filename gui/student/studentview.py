@@ -19,7 +19,7 @@ class Studentview:
         pwFrame = LabelFrame(self.window, text='Identification')
         pwLabel = Label(pwFrame, text='Mot de passe :')
         self.pwTextField = Entry(pwFrame)
-        pwValidateBtn = Button(pwFrame, text='Valider', command=self.pwValidate)
+        pwValidateBtn = Button(pwFrame, text='Valider', command=self.controller.pwValidate)
         fullnameInfoLabel = Label(pwFrame, text='Nom / Prénom')
         self.fullnameLabel = Label(pwFrame)
         pwLabel.grid(column=0, row=0)
@@ -51,11 +51,11 @@ class Studentview:
         self.scLabel.grid(row=1, column=1)
 
         actionsFrame = Frame(self.window)
-        setChoice1Btn = Button(actionsFrame, text='Selectionner comme premier choix', command=self.selectAsChoiceOne)
-        setChoice2Btn = Button(actionsFrame, text='Selectionner comme second choix', command=self.selectAsChoiceTwo)
-        choiceOkBtn = Button(actionsFrame, text='Terminer le choix', command=self.choiceOk)
-        turnOkBtn = Button(actionsFrame, text='Terminer le tour (admin)', command=self.turnOk)
-        sessionOkBtn = Button(actionsFrame, text='Terminer la session (admin)', command=self.sessionOk)
+        setChoice1Btn = Button(actionsFrame, text='Selectionner comme premier choix', command=self.controller.selectAsChoiceOne)
+        setChoice2Btn = Button(actionsFrame, text='Selectionner comme second choix', command=self.controller.selectAsChoiceTwo)
+        choiceOkBtn = Button(actionsFrame, text='Terminer le choix', command=self.controller.choiceOk)
+        turnOkBtn = Button(actionsFrame, text='Terminer le tour (admin)', command=self.controller.turnOk)
+        sessionOkBtn = Button(actionsFrame, text='Terminer la session (admin)', command=self.controller.sessionOk)
         setChoice1Btn.pack()
         setChoice2Btn.pack()
         choiceOkBtn.pack()
@@ -71,10 +71,8 @@ class Studentview:
 
         return None
 
-    def pwValidate(self):
-        password = self.pwTextField.get()
-        self.model.getVoterRow(password)
-        return None
+    def getPasswordEntry(self):
+        return self.pwTextField.get()
 
     def updateVoterInfos(self):
         self.fullnameLabel['text'] = self.model.currentVoter[0] + ' ' + self.model.currentVoter[1]
@@ -82,19 +80,6 @@ class Studentview:
 
     def clearVoterInfos(self):
         self.fullnameLabel['text'] = ''
-        return None
-
-    def turnOk(self):
-        self.model.forceSecTurn = True
-        self.controller.showMbSecondTurn()
-        return None
-
-    def choiceOk(self):
-        self.controller.choiceOk()
-        return None
-
-    def sessionOk(self):
-        ## TODO : J'ai pas envie
         return None
 
     def setCandidatesListContent(self):
@@ -109,30 +94,20 @@ class Studentview:
             self.votersList.insert(0, voter[0] + ' ' + voter[1])
         return None
 
-    def selectAsChoiceOne(self):
+    def getVotersListSelection(self):
         if self.votersList.curselection() != '':
-            voterSelection = self.votersList.get(self.votersList.curselection())
-            self.model.setChoiceOne(voterSelection)
-        elif self.candidatesList.curselection() != '':
-            candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
-            self.model.setChoiceOne(candidateSelection)
+            return self.votersList.get('active')
         else:
-            self.controller.showMbNoChoice()
-        return None
+            return None
+
+    def getCandidatesListSelection(self):
+        if self.candidatesList.curselection() != '':
+            return self.candidatesList.get('active')
+        else:
+            return None
 
     def updateChoiceOneInfos(self, choiceName:str):
         self.fcLabel['text'] = choiceName
-        return None
-
-    def selectAsChoiceTwo(self):
-        if self.votersList.curselection() != '':
-            voterSelection = self.votersList.get(self.votersList.curselection())
-            self.model.setChoiceTwo(voterSelection)
-        elif self.candidatesList.curselection() != '':
-            candidateSelection = self.candidatesList.get(self.candidatesList.curselection())
-            self.model.setChoiceTwo(candidateSelection)
-        else:
-            self.controller.showMbNoChoice()
         return None
 
     def updateChoiceTwoInfos(self, choiceName:str):
@@ -146,8 +121,4 @@ class Studentview:
     def clearChoicesInfos(self):
         self.fcLabel['text'] = ''
         self.scLabel['text'] = ''
-        return None
-
-    def sanityCheck(self):
-        ## TODO: J'ai pas envie
         return None
